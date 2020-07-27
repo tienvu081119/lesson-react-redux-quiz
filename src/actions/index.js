@@ -20,3 +20,10 @@ export const load = ()=>{
         type: types.LOAD
     }
 }
+
+export const showQuestion = (id) =>{
+    return {
+        type: types.SHOW_QUESTION,
+        id
+    }
+}

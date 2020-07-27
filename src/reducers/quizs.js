@@ -1,5 +1,11 @@
 import * as types from './../constants/ActionType';
 
+let findIndex = (questions,id)=>{    
+    let result = -1;
+    result = questions.findIndex(x=>x.id === id);
+    return result;
+}
+
 let initialState = {
     User: {
         userName: '',
@@ -9,7 +15,8 @@ let initialState = {
     },
     App: {
         id: 0,
-        disabledBtn: true,
+        disabledBtn: true,   
+        questionIndex: 0,     
         question: [
             {
                 "id": 1,
@@ -19,7 +26,8 @@ let initialState = {
                     "0.018",
                     "0.18"
                 ],
-                "correct_answer": 1
+                "correct_answer": 1,
+                "answer": 0
             }, {
                 "id": 2,
                 "question": "The next number in the sequence <b>1, 3, 6, 10, </b> is:",
@@ -29,7 +37,8 @@ let initialState = {
                     "14",
                     "15"
                 ],
-                "correct_answer": 4
+                "correct_answer": 4,
+                "answer": 0
             }, {
                 "id": 3,
                 "question": "What is the scientific name of a butterfly?",
@@ -39,7 +48,8 @@ let initialState = {
                     "Formicidae",
                     "Rhopalocera"
                 ],
-                "correctIndex": 3
+                "correctIndex": 3,
+                "answer": 0
             }, {
                 "id": 4,
                 "question": "How hot is the surface of the sun?",
@@ -49,7 +59,8 @@ let initialState = {
                     "12,130 K",
                     "101,300 K"
                 ],
-                "correctIndex": 1
+                "correctIndex": 1,
+                "answer": 0
             }, {
                 "id": 5,
                 "question": "Who are the actors in The Internship?",
@@ -59,9 +70,10 @@ let initialState = {
                     "Kaley Cuoco, Jim Parsons",
                     "Vince Vaughn, Owen Wilson"
                 ],
-                "correctIndex": 3
+                "correctIndex": 3,
+                "answer": 0
             },
-        ]
+        ]       
     }
 }
 
@@ -76,6 +88,13 @@ let myReducer = (state = initialState, action) => {
         case types.NEXT_BTN:                    
             state.App.id = action.number;
             return { ...state };
+
+        case types.SHOW_QUESTION:   
+            let id = action.id;
+            let index = findIndex(state.App.question,id)         
+            state.App.questionIndex =  index;
+            return {...state};
+
         default: return state;
     }
 }

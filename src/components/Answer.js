@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import * as action from './../actions/index';
+import { connect } from "react-redux";
+import * as action from "./../actions/index";
+import RadioButton from "./RadioButton";
 
 import {
   Container,
@@ -14,67 +15,54 @@ import {
   FormControl,
   Table,
 } from "react-bootstrap";
+import Question from "./Question";
 
 class Answer extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  componentDidMount()
-  {
-      console.log('DidMound');
-      this.props.onLoad();
+  componentDidMount() {
+    console.log("DidMound");
+    this.props.onLoad();
   }
 
   render() {
-    console.log('Render');
+    let questionIndex = this.props.quizs.App.questionIndex;
+    let arrayQuestion = this.props.quizs.App.question;
+    let questionObj = arrayQuestion[questionIndex];
+    let answers = questionObj.answers;
     return (
       <>
-        <h3>Test Question</h3>
+        <h3>
+          {questionObj.id} . {questionObj.question}
+        </h3>
         <div>
-          <Table responsive="xl">
-            <thead>
-              <tr>
-                <th>Answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <input type="radio" />1
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="radio" />2
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="radio" />3
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input type="radio" />4
-                </td>
-              </tr>
-            </tbody>
-          </Table>
+          <form>
+            {answers.map((answer) => (
+              <RadioButton answer={answer} />
+            ))}
+          </form>
         </div>
+
+       
       </>
     );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    quizs: state.quizs,
+  };
+};
 
-const mapDispathToProps = (dispath, props) =>{
-    return {
-        onLoad: () =>{
-            dispath(action.load())
-        }
-    }
-}
+const mapDispathToProps = (dispath, props) => {
+  return {
+    onLoad: () => {
+      dispath(action.load());
+    },
+  };
+};
 
-export default connect(null,mapDispathToProps) (Answer);
-
+export default connect(mapStateToProps, mapDispathToProps)(Answer);
