@@ -27,3 +27,11 @@ export const showQuestion = (id) =>{
         id
     }
 }
+
+export const chooseAns = (questionId,ans)=>{
+    return {
+        type: types.CHOOSE_ANS,
+        questionId,
+        ans
+    }
+}

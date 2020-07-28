@@ -77,7 +77,7 @@ let initialState = {
     }
 }
 
-let myReducer = (state = initialState, action) => {   
+let myReducer = (state = initialState, action) => {       
     switch (action.type) {
         case types.RES_USER:
             state.User.userName = action.userName;
@@ -95,6 +95,15 @@ let myReducer = (state = initialState, action) => {
             state.App.questionIndex =  index;
             return {...state};
 
+        case types.CHOOSE_ANS:
+            debugger;
+            let questionId = action.questionId;
+            
+            let ans = action.ans;
+            
+
+            return {...state};
+            
         default: return state;
     }
 }

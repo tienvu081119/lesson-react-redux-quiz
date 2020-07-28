@@ -39,13 +39,13 @@ class Answer extends React.Component {
         </h3>
         <div>
           <form>
-            {answers.map((answer) => (
-              <RadioButton answer={answer} />
-            ))}
+            <ul>
+              {answers.map((answer) => (
+                <RadioButton answer={answer} questionId={questionObj.id} />
+              ))}
+            </ul>
           </form>
         </div>
-
-       
       </>
     );
   }

@@ -5,25 +5,39 @@ import * as action from "./../actions/index";
 class RadioButton extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-        color: 'green'
-      };
+    this.handleChange = this.handleChange.bind(this);  
   }
 
-  render() {
+  handleChange(event) {      
+    let questionId = this.props.questionId;  
+    let ans =  event.target.value;
+    this.props.onHandleChange(questionId,ans)
+  }
+
+  render() {    
     let ans = this.props.answer;   
     return (
       <>
-        <div className="radio">
+        <li>
           <label>
-            <input type="radio" value="option1" checked={this.state.color === "green"} />
-                  {ans}
+            <input
+              name="ans"
+              type="radio"
+              value={ans}              
+              onChange={this.handleChange}
+            />
+            {ans}
           </label>
-        </div>
+        </li>      
       </>
     );
   }
 }
-
-export default RadioButton;
+const mapDispathToProps = (dispath, props) =>{
+    return {
+      onHandleChange: (questionIndex,ans)=>{
+        dispath(action.chooseAns(questionIndex,ans))
+      }
+    }
+}
+export default connect(null, mapDispathToProps) (RadioButton);
