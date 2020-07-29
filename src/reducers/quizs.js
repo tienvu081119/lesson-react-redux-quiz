@@ -12,13 +12,31 @@ let findAnswerIndex = (answer, ans) =>{
         return result;
 }
 
+let socreQuestion = (quesArray) =>{
+    let res= 0;
+    let ques = quesArray;   
+    var i = 0;
+    var len = ques.length;
+    for(; i < len; )
+    {
+        var obj = ques[i];
+        if(obj.answer === obj.correct_answer)
+            res++;
+        i++;
+    }
+    return res +'/'+ len;
+
+}
+
 let initialState = {
     User: {
         userName: '',
         email: '',
         option_1: true,
         option_2: false,
-        socre: ''
+        score: '',
+        
+         
     },
     App: {
         id: 0,
@@ -95,6 +113,12 @@ let myReducer = (state = initialState, action) => {
             
         case types.NEXT_BTN:                    
             state.App.id = action.number;
+            if(state.App.id == 3)
+            {
+                let sco = socreQuestion(state.App.question);
+                state.User.score = sco;
+                return {... state};
+            }
             return { ...state};
 
         case types.SHOW_QUESTION:             
@@ -122,8 +146,8 @@ let myReducer = (state = initialState, action) => {
             let ansIndex = findAnswerIndex(arrayAns,ans);
             cloneQuesttion.answer = ansIndex;
             state.App.question[questionIndex] = cloneQuesttion;
-            state.App.isChecked = ans;
-            console.log(state);
+            state.App.isChecked = ans;        
+           
             return {...state};
             
         default: return state;

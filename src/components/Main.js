@@ -30,7 +30,7 @@ class Main extends React.Component {
         }
         else if(pageId == 3)
         {
-            ques = <Score />
+            pageForm = <Score />
         }
         else 
         {

@@ -19,8 +19,7 @@ class RadioButton extends React.Component {
 
   render() {    
     let ans = this.props.answer;   
-    let isChecked = this.props.quizs.App.isChecked;
-    console.log(isChecked);
+    let isChecked = this.props.quizs.App.isChecked;    
     return (
       <>
         <li>
