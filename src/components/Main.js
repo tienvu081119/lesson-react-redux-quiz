@@ -5,6 +5,7 @@ import ButtonNext from './ButtonNext';
 import VideoForm from './VideoForm';
 import Question from './Question';
 import Answer from './Answer';
+import Score from './Score';
 import { connect } from 'react-redux';
 
 class Main extends React.Component {
@@ -17,6 +18,7 @@ class Main extends React.Component {
         let pageId = this.props.quizs.App.id;       
         let pageForm;
         let ques;
+        let score;
         if(pageId == 1)
         {
             pageForm = <VideoForm />
@@ -25,6 +27,10 @@ class Main extends React.Component {
         {
             pageForm = <Answer />
             ques = <Question />
+        }
+        else if(pageId == 3)
+        {
+            ques = <Score />
         }
         else 
         {

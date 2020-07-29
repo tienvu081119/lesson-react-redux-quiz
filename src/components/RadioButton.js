@@ -6,16 +6,21 @@ class RadioButton extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);  
+    this.state  = {
+      isChecked: false
+    }
   }
 
-  handleChange(event) {      
-    let questionId = this.props.questionId;  
+  handleChange(event) {         
     let ans =  event.target.value;
+    let questionId = this.props.questionId;   
     this.props.onHandleChange(questionId,ans)
   }
 
   render() {    
     let ans = this.props.answer;   
+    let isChecked = this.props.quizs.App.isChecked;
+    console.log(isChecked);
     return (
       <>
         <li>
@@ -24,7 +29,8 @@ class RadioButton extends React.Component {
               name="ans"
               type="radio"
               value={ans}              
-              onChange={this.handleChange}
+              onChange={this.handleChange}    
+              checked = {isChecked === ans}          
             />
             {ans}
           </label>
@@ -33,6 +39,14 @@ class RadioButton extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) =>{   
+  return {
+      quizs : state.quizs
+  }
+}
+
+
 const mapDispathToProps = (dispath, props) =>{
     return {
       onHandleChange: (questionIndex,ans)=>{
@@ -40,4 +54,4 @@ const mapDispathToProps = (dispath, props) =>{
       }
     }
 }
-export default connect(null, mapDispathToProps) (RadioButton);
+export default connect(mapStateToProps, mapDispathToProps) (RadioButton);

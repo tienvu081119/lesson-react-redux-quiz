@@ -6,17 +6,25 @@ let findIndex = (questions,id)=>{
     return result;
 }
 
+let findAnswerIndex = (answer, ans) =>{
+        let result = -1;
+        result = answer.findIndex(x=>x=== ans);
+        return result;
+}
+
 let initialState = {
     User: {
         userName: '',
         email: '',
         option_1: true,
         option_2: false,
+        socre: ''
     },
     App: {
         id: 0,
         disabledBtn: true,   
-        questionIndex: 0,     
+        questionIndex: 0,   
+        isChecked: '',
         question: [
             {
                 "id": 1,
@@ -27,7 +35,7 @@ let initialState = {
                     "0.18"
                 ],
                 "correct_answer": 1,
-                "answer": 0
+                "answer": -1
             }, {
                 "id": 2,
                 "question": "The next number in the sequence <b>1, 3, 6, 10, </b> is:",
@@ -38,7 +46,7 @@ let initialState = {
                     "15"
                 ],
                 "correct_answer": 4,
-                "answer": 0
+                "answer": -1
             }, {
                 "id": 3,
                 "question": "What is the scientific name of a butterfly?",
@@ -49,7 +57,7 @@ let initialState = {
                     "Rhopalocera"
                 ],
                 "correctIndex": 3,
-                "answer": 0
+                "answer": -1
             }, {
                 "id": 4,
                 "question": "How hot is the surface of the sun?",
@@ -60,7 +68,7 @@ let initialState = {
                     "101,300 K"
                 ],
                 "correctIndex": 1,
-                "answer": 0
+                "answer": -1
             }, {
                 "id": 5,
                 "question": "Who are the actors in The Internship?",
@@ -71,7 +79,7 @@ let initialState = {
                     "Vince Vaughn, Owen Wilson"
                 ],
                 "correctIndex": 3,
-                "answer": 0
+                "answer": -1
             },
         ]       
     }
@@ -87,21 +95,35 @@ let myReducer = (state = initialState, action) => {
             
         case types.NEXT_BTN:                    
             state.App.id = action.number;
-            return { ...state };
+            return { ...state};
 
-        case types.SHOW_QUESTION:   
+        case types.SHOW_QUESTION:             
             let id = action.id;
-            let index = findIndex(state.App.question,id)         
+            let index = findIndex(state.App.question,id) 
             state.App.questionIndex =  index;
+            var cloneQuestion = state.App.question[index];
+            if(cloneQuestion.answer != -1)
+            {
+                let answerIndex = cloneQuestion.answer;
+                var check = cloneQuestion.answers[answerIndex];
+                state.App.isChecked = check;
+            }
+            else {
+                state.App.isChecked = '';
+            }
             return {...state};
 
-        case types.CHOOSE_ANS:
-            debugger;
-            let questionId = action.questionId;
-            
+        case types.CHOOSE_ANS:           
+            let questionId = action.questionId;            
             let ans = action.ans;
-            
-
+            let questionIndex = findIndex(state.App.question,questionId);
+            var cloneQuesttion = state.App.question[questionIndex];
+            var arrayAns =  cloneQuesttion.answers;
+            let ansIndex = findAnswerIndex(arrayAns,ans);
+            cloneQuesttion.answer = ansIndex;
+            state.App.question[questionIndex] = cloneQuesttion;
+            state.App.isChecked = ans;
+            console.log(state);
             return {...state};
             
         default: return state;

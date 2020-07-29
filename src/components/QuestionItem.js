@@ -16,15 +16,28 @@ class QuestionItem extends React.Component {
 
   render() {
     let que = this.props.que;
+    let res = 'NOT YET';
+    let answerC = que.answer;
+    if(answerC != -1)
+    {
+      res = 'DONE'
+    }
     return (
       <>
         <button type="button" class="list-group-item list-group-item-action" onClick={this.handleChoose}>
-          {que.id}.{que.question}
+          {que.id}.{que.question} [{res}]
         </button>       
       </>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    quizs: state.quizs,
+  };
+};
+
 
 const mapDispathToProps = (dispath, props) =>{
   return {
@@ -34,4 +47,4 @@ const mapDispathToProps = (dispath, props) =>{
   }
 }
 
-export default connect(null,mapDispathToProps) (QuestionItem);
+export default connect(mapStateToProps,mapDispathToProps) (QuestionItem);

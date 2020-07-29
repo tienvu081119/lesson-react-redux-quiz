@@ -22,8 +22,7 @@ class Answer extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    console.log("DidMound");
+  componentDidMount() {   
     this.props.onLoad();
   }
 
@@ -31,7 +30,8 @@ class Answer extends React.Component {
     let questionIndex = this.props.quizs.App.questionIndex;
     let arrayQuestion = this.props.quizs.App.question;
     let questionObj = arrayQuestion[questionIndex];
-    let answers = questionObj.answers;
+    let answers = questionObj.answers;    
+    let questionId = questionObj.id;
     return (
       <>
         <h3>
@@ -41,7 +41,7 @@ class Answer extends React.Component {
           <form>
             <ul>
               {answers.map((answer) => (
-                <RadioButton answer={answer} questionId={questionObj.id} />
+                <RadioButton answer={answer} questionId={questionId} />
               ))}
             </ul>
           </form>
