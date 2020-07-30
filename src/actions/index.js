@@ -35,3 +35,15 @@ export const chooseAns = (questionId,ans)=>{
         ans
     }
 }
+
+export const tick = () =>{
+    return {
+        type: types.TICK
+    }
+}
+
+export const stop = () =>{
+    return {
+        type: types.STOP
+    }
+}

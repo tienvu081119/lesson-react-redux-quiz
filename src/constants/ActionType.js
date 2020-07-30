@@ -3,3 +3,5 @@ export const NEXT_BTN = 'NEXT_BTN';
 export const LOAD = 'LOAD';
 export const SHOW_QUESTION = 'SHOW_QUESTION';
 export const CHOOSE_ANS = 'CHOOSE_ANS';
+export const TICK = 'TICK';
+export const STOP = 'STOP';

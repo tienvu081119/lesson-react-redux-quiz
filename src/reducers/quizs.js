@@ -34,9 +34,11 @@ let initialState = {
         email: '',
         option_1: true,
         option_2: false,
-        score: '',
-        
-         
+        score: '', 
+
+        seconds: 30,       
+        status: 'paused',
+        decrement_interval: 0         
     },
     App: {
         id: 0,
@@ -103,7 +105,8 @@ let initialState = {
     }
 }
 
-let myReducer = (state = initialState, action) => {       
+let myReducer = (state = initialState, action) => {   
+    console.log(action);   
     switch (action.type) {
         case types.RES_USER:
             state.User.userName = action.userName;
@@ -146,10 +149,19 @@ let myReducer = (state = initialState, action) => {
             let ansIndex = findAnswerIndex(arrayAns,ans);
             cloneQuesttion.answer = ansIndex;
             state.App.question[questionIndex] = cloneQuesttion;
-            state.App.isChecked = ans;        
-           
+            state.App.isChecked = ans; 
+            return {...state};           
+    
+        case types.TICK:
+            state.User.seconds = (state.User.seconds - .01).toFixed(2);
             return {...state};
-            
+
+        case types.STOP:
+            state.User.seconds = 0;
+            state.App.id = 3;
+            let sco = socreQuestion(state.App.question);
+            state.User.score = sco;
+            return {...state}
         default: return state;
     }
 }
