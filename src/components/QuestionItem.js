@@ -24,7 +24,7 @@ class QuestionItem extends React.Component {
     }
     return (
       <>
-        <button type="button" class="list-group-item list-group-item-action" onClick={this.handleChoose}>
+        <button type="button" className="list-group-item list-group-item-action" onClick={this.handleChoose}>
           {que.id}.{que.question} [{res}]
         </button>       
       </>

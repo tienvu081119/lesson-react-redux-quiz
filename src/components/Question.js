@@ -8,10 +8,10 @@ class Question extends React.Component {
     let ques = this.props.quizs.App.question;
     return (
       <>
-        <div class="list-group">
+        <div>
           <button
             type="button"
-            class="list-group-item list-group-item-action active"
+            className="list-group-item list-group-item-action active"
           >
             Description
           </button>

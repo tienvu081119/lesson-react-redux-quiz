@@ -43,12 +43,12 @@ class Main extends React.Component {
             <Container>
                 <Row className="justify-content-md-center">
                 <Col sx="1">{timer}</Col>
-                <Col sx lg="6">{pageForm}</Col>
-                <Col sx lg="5">{ques}</Col>
+                <Col sx="6">{pageForm}</Col>
+                <Col sx="5">{ques}</Col>
                 </Row>
                 <Row className="justify-content-md-center">
-                    <Col sx lg="8"></Col>
-                    <Col xs lg="2"><ButtonNext /></Col>
+                    <Col sx="8"></Col>
+                    <Col xs="2"><ButtonNext /></Col>
                 </Row>
             </Container>
         )
